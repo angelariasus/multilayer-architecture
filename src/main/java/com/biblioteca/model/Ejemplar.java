@@ -1,4 +1,4 @@
-package com.sistema.model;
+package com.biblioteca.model;
 import lombok.Data;
 
 @Data    
