@@ -22,14 +22,17 @@ public class UsuarioDAO {
         List<Usuario> lista = new ArrayList<>();
         String sql = "SELECT * FROM usuarios";
         try (Connection conn = Conexion.getConexion();
-             Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 lista.add(new Usuario(
                         rs.getInt("id_usuario"),
                         rs.getString("nombre"),
                         rs.getString("tipo"),
-                        rs.getString("estado")));
+                        rs.getString("estado"),
+                        rs.getString("username"),
+                        rs.getString("password")
+                ));
             }
         } catch (SQLException e) { e.printStackTrace(); }
         return lista;
@@ -38,7 +41,7 @@ public class UsuarioDAO {
     public Usuario buscarPorId(int id) {
         String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
         try (Connection conn = Conexion.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+            PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -46,11 +49,15 @@ public class UsuarioDAO {
                         rs.getInt("id_usuario"),
                         rs.getString("nombre"),
                         rs.getString("tipo"),
-                        rs.getString("estado"));
+                        rs.getString("estado"),
+                        rs.getString("username"),
+                        rs.getString("password")
+                );
             }
         } catch (SQLException e) { e.printStackTrace(); }
         return null;
     }
+
 
     public void actualizarEstado(int id, String nuevoEstado) {
         String sql = "UPDATE usuarios SET estado = ? WHERE id_usuario = ?";
@@ -69,5 +76,30 @@ public class UsuarioDAO {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) { e.printStackTrace(); }
+    }
+
+    public Usuario login(String username, String password) {
+        String sql = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Usuario(
+                        rs.getInt("id_usuario"),
+                        rs.getString("nombre"),
+                        rs.getString("tipo"),
+                        rs.getString("estado"),
+                        rs.getString("username"),
+                        rs.getString("password")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; 
     }
 }

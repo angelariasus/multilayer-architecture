@@ -5,7 +5,6 @@ import com.biblioteca.dao.PrestamoDAO;
 import com.biblioteca.model.Ejemplar;
 import com.biblioteca.model.Prestamo;
 
-import java.util.Date;
 import java.util.List;
 
 public class PrestamoService {

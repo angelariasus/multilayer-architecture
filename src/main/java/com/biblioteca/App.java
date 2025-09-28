@@ -1,7 +1,7 @@
 package com.biblioteca;
 
 import com.biblioteca.controller.*;
-import com.biblioteca.model.*;
+import com.biblioteca.model.Usuario;
 
 import java.util.*;
 
@@ -9,15 +9,34 @@ public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        AuthController authCtrl = new AuthController();
         UsuarioController usuarioCtrl = new UsuarioController();
         EjemplarController ejemplarCtrl = new EjemplarController();
         PrestamoController prestamoCtrl = new PrestamoController();
         ReservaController reservaCtrl = new ReservaController();
         MultaController multaCtrl = new MultaController();
 
+        // ===== LOGIN =====
+        System.out.println("=== SISTEMA DE BIBLIOTECA ===");
+        System.out.print("Usuario: ");
+        String username = sc.nextLine();
+        System.out.print("Contraseña: ");
+        String password = sc.nextLine();
+
+        Usuario usuarioLogueado = authCtrl.login(username, password);
+
+        if (usuarioLogueado == null) {
+            System.out.println("Credenciales inválidas o usuario inactivo.");
+            sc.close();
+            return;
+        }
+
+        System.out.println("Bienvenido " + usuarioLogueado.getNombre() + " (" + usuarioLogueado.getTipo() + ")");
+
+        // ===== MENÚ PRINCIPAL =====
         int opcion = -1;
         while (opcion != 0) {
-            System.out.println("\n=== SISTEMA DE BIBLIOTECA ===");
+            System.out.println("\n=== MENÚ PRINCIPAL ===");
             System.out.println("1. Gestionar Usuarios");
             System.out.println("2. Gestionar Ejemplares");
             System.out.println("3. Gestionar Préstamos");
@@ -41,6 +60,7 @@ public class App {
         sc.close();
     }
 
+    // ===== MENÚ USUARIOS =====
     private static void menuUsuarios(Scanner sc, UsuarioController usuarioCtrl) {
         System.out.println("\n--- Gestión de Usuarios ---");
         System.out.println("1. Registrar usuario");
@@ -57,7 +77,11 @@ public class App {
                 String nombre = sc.nextLine();
                 System.out.print("Tipo (Alumno/Docente/Administrativo): ");
                 String tipo = sc.nextLine();
-                usuarioCtrl.registrarUsuario(nombre, tipo);
+                System.out.print("Username: ");
+                String username = sc.nextLine();
+                System.out.print("Contraseña: ");
+                String password = sc.nextLine();
+                usuarioCtrl.registrarUsuario(nombre, tipo, username, password);
             }
             case 2 -> usuarioCtrl.listarUsuarios().forEach(System.out::println);
             case 3 -> {
@@ -78,6 +102,7 @@ public class App {
         }
     }
 
+    // ===== MENÚ EJEMPLARES =====
     private static void menuEjemplares(Scanner sc, EjemplarController ejemplarCtrl) {
         System.out.println("\n--- Gestión de Ejemplares ---");
         System.out.println("1. Registrar ejemplar");
@@ -109,6 +134,7 @@ public class App {
         }
     }
 
+    // ===== MENÚ PRÉSTAMOS =====
     private static void menuPrestamos(Scanner sc, PrestamoController prestamoCtrl) {
         System.out.println("\n--- Gestión de Préstamos ---");
         System.out.println("1. Realizar préstamo");
@@ -139,6 +165,7 @@ public class App {
         }
     }
 
+    // ===== MENÚ RESERVAS =====
     private static void menuReservas(Scanner sc, ReservaController reservaCtrl) {
         System.out.println("\n--- Gestión de Reservas ---");
         System.out.println("1. Registrar reserva");
@@ -158,6 +185,7 @@ public class App {
         }
     }
 
+    // ===== MENÚ MULTAS =====
     private static void menuMultas(Scanner sc, MultaController multaCtrl) {
         System.out.println("\n--- Gestión de Multas ---");
         System.out.println("1. Registrar multa");

@@ -1,7 +1,11 @@
 package com.biblioteca.model;
 import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@Data    
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Ejemplar {
     private int idEjemplar;
     private String titulo;

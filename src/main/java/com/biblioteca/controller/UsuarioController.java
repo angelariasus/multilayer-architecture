@@ -8,8 +8,8 @@ import java.util.List;
 public class UsuarioController {
     private UsuarioService usuarioService = new UsuarioService();
 
-    public void registrarUsuario(String nombre, String tipo) {
-        Usuario usuario = new Usuario(0, nombre, tipo, "Activo");
+    public void registrarUsuario(String nombre, String tipo, String username, String password) {
+        Usuario usuario = new Usuario(0, nombre, tipo, "Activo", username, password);
         usuarioService.registrarUsuario(usuario);
         System.out.println("Usuario registrado.");
     }
@@ -24,12 +24,12 @@ public class UsuarioController {
 
     public void bloquearUsuario(int id) {
         usuarioService.bloquearUsuario(id);
-        System.out.println("⚠ Usuario bloqueado.");
+        System.out.println("Usuario bloqueado.");
     }
 
     public void activarUsuario(int id) {
         usuarioService.activarUsuario(id);
-        System.out.println("✅ Usuario activado.");
+        System.out.println("Usuario activado.");
     }
 
     public void eliminarUsuario(int id) {
