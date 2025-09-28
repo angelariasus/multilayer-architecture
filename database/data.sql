@@ -1,35 +1,35 @@
 -- ========================
 -- INSERTAR USUARIOS
 -- ========================
-INSERT INTO usuarios (id_usuario, username, password, nombre, tipo, estado)
-VALUES (1, 'ana.torres', '1234', 'Ana Torres', 'Alumno', 'Activo');
+INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
+VALUES (1, 'Ana Torres', 'Alumno', 'Activo', 'ana.torres', '1234');
 
-INSERT INTO usuarios (id_usuario, username, password, nombre, tipo, estado)
-VALUES (2, 'luis.garcia', '1234', 'Luis García', 'Alumno', 'Activo');
+INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
+VALUES (2, 'Luis García', 'Alumno', 'Activo', 'luis.garcia', '1234');
 
-INSERT INTO usuarios (id_usuario, username, password, nombre, tipo, estado)
-VALUES (3, 'maria.lopez', 'abcd', 'María López', 'Docente', 'Activo');
+INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
+VALUES (3, 'María López', 'Docente', 'Activo', 'maria.lopez', 'abcd');
 
-INSERT INTO usuarios (id_usuario, username, password, nombre, tipo, estado)
-VALUES (4, 'carlos.ramos', 'admin', 'Carlos Ramos', 'Administrativo', 'Activo');
+INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
+VALUES (4, 'Carlos Ramos', 'Administrativo', 'Activo', 'carlos.ramos', 'admin');
 
-INSERT INTO usuarios (id_usuario, username, password, nombre, tipo, estado)
-VALUES (5, 'sofia.delgado', '5678', 'Sofía Delgado', 'Alumno', 'Bloqueado');
+INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
+VALUES (5, 'Sofía Delgado', 'Alumno', 'Bloqueado', 'sofia.delgado', '5678');
 
-INSERT INTO usuarios (id_usuario, username, password, nombre, tipo, estado)
-VALUES (6, 'pedro.castillo', 'abcd', 'Pedro Castillo', 'Docente', 'Activo');
+INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
+VALUES (6, 'Pedro Castillo', 'Docente', 'Activo', 'pedro.castillo', 'abcd');
 
-INSERT INTO usuarios (id_usuario, username, password, nombre, tipo, estado)
-VALUES (7, 'laura.fernandez', 'pass1', 'Laura Fernández', 'Alumno', 'Activo');
+INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
+VALUES (7, 'Laura Fernández', 'Alumno', 'Activo', 'laura.fernandez', 'pass1');
 
-INSERT INTO usuarios (id_usuario, username, password, nombre, tipo, estado)
-VALUES (8, 'diego.medina', 'pass2', 'Diego Medina', 'Alumno', 'Activo');
+INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
+VALUES (8, 'Diego Medina', 'Alumno', 'Activo', 'diego.medina', 'pass2');
 
-INSERT INTO usuarios (id_usuario, username, password, nombre, tipo, estado)
-VALUES (9, 'carmen.soto', 'doc123', 'Carmen Soto', 'Docente', 'Activo');
+INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
+VALUES (9, 'Carmen Soto', 'Docente', 'Activo', 'carmen.soto', 'doc123');
 
-INSERT INTO usuarios (id_usuario, username, password, nombre, tipo, estado)
-VALUES (10, 'javier.paredes', 'jp2025', 'Javier Paredes', 'Alumno', 'Activo');
+INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
+VALUES (10, 'Javier Paredes', 'Alumno', 'Activo', 'javier.paredes', 'jp2025');
 
 COMMIT;
 

@@ -79,7 +79,7 @@ public class UsuarioDAO {
     }
 
     public Usuario login(String username, String password) {
-        String sql = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
+        String sql = "SELECT id_usuario, username, password, nombre, tipo, estado FROM usuarios WHERE UPPER(username) = UPPER(?) AND password = ?";
         try (Connection conn = Conexion.getConexion();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
