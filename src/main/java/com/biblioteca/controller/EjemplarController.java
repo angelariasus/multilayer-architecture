@@ -24,11 +24,11 @@ public class EjemplarController {
 
     public void cambiarEstado(int id, String estado) {
         ejemplarService.cambiarEstadoEjemplar(id, estado);
-        System.out.println("🔄 Estado actualizado.");
+        System.out.println("Estado actualizado.");
     }
 
     public void eliminarEjemplar(int id) {
         ejemplarService.eliminarEjemplar(id);
-        System.out.println("🗑 Ejemplar eliminado.");
+        System.out.println("Ejemplar eliminado.");
     }
 }
