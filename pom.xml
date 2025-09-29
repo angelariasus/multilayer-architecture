@@ -38,6 +38,18 @@
       <version>1.18.34</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.formdev</groupId>
+      <artifactId>flatlaf</artifactId>
+      <version>3.2.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.miglayout</groupId>
+      <artifactId>miglayout-swing</artifactId>
+      <version>11.0</version>
+    </dependency>
   </dependencies>
 
   <build>

@@ -43,7 +43,7 @@ private static final String PASSWORD = "pass";
 
 ### Build and run (console mode)
 ```bash
-mvn clean compile exec:java -Dexec.mainClass="com.biblioteca.App"
+mvn clean compile exec:java
 ```
 
 ## Key Learning Outcomes

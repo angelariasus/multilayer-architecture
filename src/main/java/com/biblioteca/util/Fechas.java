@@ -28,4 +28,18 @@ public class Fechas {
         Date hoy = new Date();
         return hoy.after(fechaDevolucion);
     }
+
+    public static boolean validarFecha(String fecha) {
+        if (fecha == null || fecha.trim().isEmpty()) {
+            return false;
+        }
+        try {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            sdf.setLenient(false); // fuerza validación estricta
+            sdf.parse(fecha.trim());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
