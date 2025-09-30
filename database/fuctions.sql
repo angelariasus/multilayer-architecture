@@ -7,7 +7,7 @@ BEGIN
     WHERE id_ejemplar = :NEW.id_ejemplar;
 END;
 /
-
+SELECT * FROM usuarios;
 CREATE OR REPLACE TRIGGER trg_prestamo_update
 AFTER UPDATE OF devuelto ON prestamos
 FOR EACH ROW
