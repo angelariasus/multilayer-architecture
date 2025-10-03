@@ -7,15 +7,21 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    public void insertar(Usuario usuario) {
-        String sql = "INSERT INTO usuarios(nombre, tipo, estado) VALUES (?, ?, ?)";
+        public void insertar(Usuario usuario) {
+        String sql = "INSERT INTO usuarios(nombre, tipo, estado, username, password) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Conexion.getConexion();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, usuario.getNombre());
             ps.setString(2, usuario.getTipo());
             ps.setString(3, usuario.getEstado());
+            ps.setString(4, usuario.getUsername());
+            ps.setString(5, usuario.getPassword());
             ps.executeUpdate();
-        } catch (SQLException e) { e.printStackTrace(); }
+            System.out.println("Usuario insertado correctamente");
+        } catch (SQLException e) { 
+            System.err.println("Error al insertar usuario: " + e.getMessage());
+            e.printStackTrace(); 
+        }
     }
 
     public List<Usuario> listar() {
@@ -58,6 +64,19 @@ public class UsuarioDAO {
         return null;
     }
 
+    public void actualizarUsuario(Usuario usuario) {
+        String sql = "UPDATE usuarios SET nombre = ?, tipo = ?, estado = ?, username = ?, password = ? WHERE id_usuario = ?";
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getTipo());
+            ps.setString(3, usuario.getEstado());
+            ps.setString(4, usuario.getUsername());
+            ps.setString(5, usuario.getPassword());
+            ps.setInt(6, usuario.getIdUsuario());
+            ps.executeUpdate();
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
 
     public void actualizarEstado(int id, String nuevoEstado) {
         String sql = "UPDATE usuarios SET estado = ? WHERE id_usuario = ?";

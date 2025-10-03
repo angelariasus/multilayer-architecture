@@ -1,7 +1,7 @@
 package com.biblioteca.view;
 
 import com.biblioteca.controller.UsuarioController;
-import com.biblioteca.model.Usuario;
+import com.biblioteca.dto.UsuarioDTO;
 import com.biblioteca.util.UIConstants;
 import com.biblioteca.util.Validador;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.ArrayList;
+
 
 public class UsuarioView extends JFrame {
     private UsuarioController usuarioController;
@@ -238,10 +240,9 @@ public class UsuarioView extends JFrame {
 
     private void loadUsuarios() {
         try {
-            List<Usuario> usuarios = usuarioController.listarUsuarios();
+            List<UsuarioDTO> usuarios = usuarioController.listarUsuariosDTO(); 
             tableModel.setRowCount(0);
-            
-            for (Usuario usuario : usuarios) {
+            for (UsuarioDTO usuario : usuarios) {
                 Object[] row = {
                     usuario.getIdUsuario(),
                     usuario.getNombre(),
@@ -253,6 +254,7 @@ public class UsuarioView extends JFrame {
             }
         } catch (Exception e) {
             showErrorMessage("Error al cargar usuarios: " + e.getMessage());
+            e.printStackTrace(); 
         }
     }
 
@@ -262,7 +264,7 @@ public class UsuarioView extends JFrame {
             int modelRow = usuariosTable.convertRowIndexToModel(selectedRow);
             nombreField.setText(tableModel.getValueAt(modelRow, 1).toString());
             tipoField.setText(tableModel.getValueAt(modelRow, 2).toString()); // tipo
-            usernameField.setText(tableModel.getValueAt(modelRow, 3).toString()); // estado
+            usernameField.setText(tableModel.getValueAt(modelRow, 4).toString()); // username (columna 4, no 3)
         }
     }
 
@@ -270,12 +272,13 @@ public class UsuarioView extends JFrame {
         if (!validateFields()) return;
         
         try {
-            usuarioController.registrarUsuario(
-                nombreField.getText().trim(),
-                tipoField.getText().trim(), // usando como tipo
-                usernameField.getText().trim(), // usando como username
-                "password123" // password por defecto
-            );
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+            usuarioDTO.setNombre(nombreField.getText());
+            usuarioDTO.setTipo(tipoField.getText());
+            usuarioDTO.setUsername(usernameField.getText());
+            usuarioDTO.setPassword("1234"); 
+            
+            usuarioController.registrarUsuario(usuarioDTO);
             showSuccessMessage("Usuario agregado exitosamente");
             loadUsuarios();
             clearFields();

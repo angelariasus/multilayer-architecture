@@ -4,19 +4,54 @@ import com.biblioteca.dto.UsuarioDTO;
 import com.biblioteca.model.Usuario;
 import com.biblioteca.service.UsuarioService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioController {
     private UsuarioService usuarioService = new UsuarioService();
 
     public void registrarUsuario(UsuarioDTO usuarioDTO) {
-        Usuario usuario = new Usuario(0, usuarioDTO.getNombre(), usuarioDTO.getTipo(), "Activo", usuarioDTO.getUsername(), usuarioDTO.getPassword());
+        Usuario usuario = new Usuario(
+            0, 
+            usuarioDTO.getNombre(), 
+            usuarioDTO.getTipo(), 
+            "Activo", 
+            usuarioDTO.getUsername(), 
+            usuarioDTO.getPassword());
         usuarioService.registrarUsuario(usuario);
         System.out.println("Usuario registrado.");
     }
 
-    public List<Usuario> listarUsuarios() {
-        return usuarioService.listarUsuarios();
+    public List<UsuarioDTO> listarUsuariosDTO() {
+        List<Usuario> usuarios = usuarioService.listarUsuarios();
+        List<UsuarioDTO> usuariosDTO = new ArrayList<>();
+        
+        for (Usuario usuario : usuarios) {
+            UsuarioDTO dto = new UsuarioDTO(
+                usuario.getIdUsuario(),
+                usuario.getNombre(),
+                usuario.getTipo(),
+                usuario.getEstado(),
+                usuario.getUsername(),
+                usuario.getPassword()
+            );
+            usuariosDTO.add(dto);
+        }
+        
+        return usuariosDTO;
+    }
+
+    public void actualizarUsuario(UsuarioDTO usuarioDTO) {
+        Usuario usuario = new Usuario(
+            usuarioDTO.getIdUsuario(),
+            usuarioDTO.getNombre(),
+            usuarioDTO.getTipo(),
+            usuarioDTO.getEstado(),
+            usuarioDTO.getUsername(),
+            usuarioDTO.getPassword()
+        );
+        usuarioService.actualizarUsuario(usuario);
+        System.out.println("Usuario actualizado.");
     }
 
     public Usuario buscarUsuario(int id) {

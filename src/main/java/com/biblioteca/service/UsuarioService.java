@@ -20,6 +20,10 @@ public class UsuarioService {
         return usuarioDAO.buscarPorId(id);
     }
 
+    public void actualizarUsuario(Usuario usuario) {
+        usuarioDAO.actualizarUsuario(usuario);
+    }
+
     public void bloquearUsuario(int id) {
         usuarioDAO.actualizarEstado(id, "Bloqueado");
     }
