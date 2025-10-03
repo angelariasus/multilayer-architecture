@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class DatabaseConfig {
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-    private static final String USER = "biblioteca";
-    private static final String PASSWORD = "biblioteca123";
+    private static final String USER = "user";
+    private static final String PASSWORD = "pass";
     
     static {
         try {

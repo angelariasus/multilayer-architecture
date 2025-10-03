@@ -10,17 +10,17 @@ INSERT INTO categorias (nombre, descripcion) VALUES
 INSERT INTO categorias (nombre, descripcion) VALUES 
 ('Literatura Clásica', 'Obras clásicas de la literatura universal');
 
--- Insertar usuarios
+-- Insertar usuarios (contraseñas: 'password123' hashed using SHA-256)
 INSERT INTO usuarios (nombre, tipo, username, password, email, telefono) VALUES 
-('María González', 'Bibliotecario', 'mgonzalez', 'password123', 'maria.gonzalez@biblioteca.edu', '987654321');
+('María González', 'Bibliotecario', 'mgonzalez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'maria.gonzalez@biblioteca.edu', '987654321');
 INSERT INTO usuarios (nombre, tipo, username, password, email, telefono) VALUES 
-('Juan Pérez', 'Estudiante', 'jperez', 'student123', 'juan.perez@estudiante.edu', '987654322');
+('Juan Pérez', 'Estudiante', 'jperez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'juan.perez@estudiante.edu', '987654322');
 INSERT INTO usuarios (nombre, tipo, username, password, email, telefono) VALUES 
-('Ana Rodríguez', 'Docente', 'arodriguez', 'teacher123', 'ana.rodriguez@docente.edu', '987654323');
+('Ana Rodríguez', 'Docente', 'arodriguez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'ana.rodriguez@docente.edu', '987654323');
 INSERT INTO usuarios (nombre, tipo, username, password, email, telefono) VALUES 
-('Carlos López', 'Administrativo', 'clopez', 'admin123', 'carlos.lopez@admin.edu', '987654324');
+('Carlos López', 'Administrativo', 'clopez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'carlos.lopez@admin.edu', '987654324');
 INSERT INTO usuarios (nombre, tipo, username, password, email, telefono) VALUES 
-('Laura Martín', 'Estudiante', 'lmartin', 'student456', 'laura.martin@estudiante.edu', '987654325');
+('Laura Martín', 'Estudiante', 'lmartin', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'laura.martin@estudiante.edu', '987654325');
 
 -- Insertar libros
 INSERT INTO libros (titulo, autor, isbn, id_categoria, cantidad_total, cantidad_disponible, editorial, fecha_publicacion) VALUES 

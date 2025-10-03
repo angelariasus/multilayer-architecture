@@ -1,8 +1,10 @@
 package com.biblioteca.controller;
 
 import com.biblioteca.dto.UsuarioDTO;
+import com.biblioteca.exception.ServiceException;
 import com.biblioteca.service.UsuarioService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,7 +81,11 @@ public class UsuarioController extends BaseController {
     public Map<String, Object> login(String username, String password) {
         try {
             UsuarioDTO usuario = usuarioService.login(username, password);
-            return createSuccessResponse("Login exitoso", usuario);
+            if (usuario != null) {
+                return createSuccessResponse("Login exitoso", usuario);
+            } else {
+                return createErrorResponse("Usuario o contraseña incorrectos");
+            }
         } catch (Exception e) {
             return createErrorResponse("Error en login", e);
         }
