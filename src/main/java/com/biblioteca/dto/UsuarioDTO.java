@@ -12,4 +12,5 @@ public class UsuarioDTO {
     private String tipo;
     private String estado;
     private String username;
+    private String password;
 }
