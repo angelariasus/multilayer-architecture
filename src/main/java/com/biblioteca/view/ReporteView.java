@@ -8,6 +8,9 @@ import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Map;
@@ -88,7 +91,7 @@ public class ReporteView extends JPanel {
         JButton btnExportar = ComponentFactory.createSuccessButton("Exportar");
         btnExportar.setMaximumSize(new Dimension(250, UIConstants.BUTTON_HEIGHT));
         btnExportar.setAlignmentX(Component.LEFT_ALIGNMENT);
-        btnExportar.addActionListener(e -> ComponentFactory.showWarning(this, "Funcionalidad de exportación en desarrollo"));
+        btnExportar.addActionListener(e -> exportarReporte());
         controlPanel.add(btnExportar);
         
         controlPanel.add(Box.createVerticalGlue());
@@ -349,5 +352,100 @@ public class ReporteView extends JPanel {
             }
         };
         worker.execute();
+    }
+    
+    private void exportarReporte() {
+        if (txtReporte.getText().trim().isEmpty() || 
+            txtReporte.getText().contains("Seleccione un tipo de reporte")) {
+            ComponentFactory.showWarning(this, "No hay reporte para exportar. Genere un reporte primero.");
+            return;
+        }
+        
+        // Show format selection dialog
+        String[] options = {"Texto (.txt)", "CSV (.csv)"};
+        int choice = JOptionPane.showOptionDialog(
+            this,
+            "Seleccione el formato de exportación:",
+            "Exportar Reporte",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]
+        );
+        
+        if (choice == -1) {
+            return; // User cancelled
+        }
+        
+        // Show file chooser
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Reporte");
+        
+        String extension = choice == 0 ? ".txt" : ".csv";
+        String defaultFileName = "reporte_biblioteca_" + LocalDate.now() + extension;
+        fileChooser.setSelectedFile(new File(defaultFileName));
+        
+        int result = fileChooser.showSaveDialog(this);
+        
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            
+            // Ensure correct extension
+            final File finalFile;
+            if (!selectedFile.getName().endsWith(extension)) {
+                finalFile = new File(selectedFile.getAbsolutePath() + extension);
+            } else {
+                finalFile = selectedFile;
+            }
+            
+            // Export in background
+            SwingWorker<Boolean, Void> exportWorker = new SwingWorker<>() {
+                @Override
+                protected Boolean doInBackground() {
+                    try (PrintWriter writer = new PrintWriter(new FileWriter(finalFile))) {
+                        if (choice == 1) { // CSV format
+                            // Convert report to CSV format
+                            String content = txtReporte.getText();
+                            String[] lines = content.split("\n");
+                            for (String line : lines) {
+                                // Replace multiple spaces with comma for CSV
+                                String csvLine = line.replaceAll("\\s{2,}", ",");
+                                writer.println(csvLine);
+                            }
+                        } else { // Text format
+                            writer.print(txtReporte.getText());
+                        }
+                        return true;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                }
+                
+                @Override
+                protected void done() {
+                    try {
+                        if (get()) {
+                            ComponentFactory.showSuccess(
+                                ReporteView.this, 
+                                "Reporte exportado exitosamente a:\n" + finalFile.getAbsolutePath()
+                            );
+                        } else {
+                            ComponentFactory.showError(
+                                ReporteView.this, 
+                                "Error al exportar el reporte"
+                            );
+                        }
+                    } catch (Exception ex) {
+                        ComponentFactory.showError(
+                            ReporteView.this, 
+                            "Error al exportar el reporte: " + ex.getMessage()
+                        );
+                    }
+                }
+            };
+            exportWorker.execute();
+        }
     }
 }
