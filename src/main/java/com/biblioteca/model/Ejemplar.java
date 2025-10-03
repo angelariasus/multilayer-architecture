@@ -1,25 +1,22 @@
 package com.biblioteca.model;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Ejemplar {
-    private int idEjemplar;
-    private int idLibro;
-    private String codigoEjemplar; 
+    private Long idEjemplar;
+    private Long idLibro;
+    private String codigoEjemplar;
     private String ubicacion;
-    private String estado; 
-    private String fechaAdquisicion;
+    private String estado; // 'Disponible', 'Prestado', 'Reservado', 'En reparación', 'Perdido', 'Dado de baja'
+    private LocalDate fechaAdquisicion;
     private String observaciones;
-    private String estadoFisico; 
-
-    // Campos adicionales
-    private String tituloLibro;
-    private String autorLibro;
-    private String isbnLibro;
-    private String categoriaLibro;
+    private String estadoFisico; // 'Excelente', 'Bueno', 'Regular', 'Malo'
 }

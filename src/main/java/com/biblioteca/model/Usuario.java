@@ -1,21 +1,24 @@
 package com.biblioteca.model;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Usuario {
-    private int idUsuario;
+    private Long idUsuario;
     private String nombre;
-    private String tipo; 
-    private String estado; 
+    private String tipo; // 'Administrativo', 'Bibliotecario', 'Estudiante', 'Docente'
+    private String estado; // 'Activo', 'Bloqueado', 'Inactivo'
     private String username;
     private String password;
     private String email;
     private String telefono;
     private String direccion;
-    private String fechaRegistro;
+    private LocalDate fechaRegistro;
 }

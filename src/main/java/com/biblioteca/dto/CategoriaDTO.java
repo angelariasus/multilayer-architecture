@@ -1,16 +1,20 @@
 package com.biblioteca.dto;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CategoriaDTO {
-    private int idCategoria;
+    private Long idCategoria;
     private String nombre;
     private String descripcion;
     private String estado;
-    private int cantidadLibros;
+    private LocalDate fechaCreacion;
+    private Integer totalLibros; // Campo adicional para mostrar cantidad de libros
 }

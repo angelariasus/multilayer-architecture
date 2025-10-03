@@ -1,25 +1,27 @@
 package com.biblioteca.dto;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MultaDTO {
-    private int idMulta;
-    private int idPrestamo;
+    private Long idMulta;
+    private Long idPrestamo;
+    private String nombreUsuario; // Campo adicional
+    private String tituloLibro; // Campo adicional
     private BigDecimal monto;
-    private String fechaGeneracion;
-    private String fechaPago;
-    private String estado; 
+    private LocalDate fechaGeneracion;
+    private LocalDate fechaPago;
+    private String estado;
     private String motivo;
-    private int diasRetraso;
-    
-    // Campos adicionales
-    private String nombreUsuario;
-    private String tituloLibro;
+    private Integer diasRetraso;
+    private Integer diasVencimiento; // Campo adicional calculado
+    private BigDecimal montoConInteres; // Campo adicional calculado
 }

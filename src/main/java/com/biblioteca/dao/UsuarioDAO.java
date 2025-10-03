@@ -1,124 +1,160 @@
 package com.biblioteca.dao;
 
 import com.biblioteca.model.Usuario;
+import com.biblioteca.config.DatabaseConfig;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioDAO {
-
-        public void insertar(Usuario usuario) {
-        String sql = "INSERT INTO usuarios(nombre, tipo, estado, username, password) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = Conexion.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, usuario.getNombre());
-            ps.setString(2, usuario.getTipo());
-            ps.setString(3, usuario.getEstado());
-            ps.setString(4, usuario.getUsername());
-            ps.setString(5, usuario.getPassword());
-            ps.executeUpdate();
-            System.out.println("Usuario insertado correctamente");
-        } catch (SQLException e) { 
-            System.err.println("Error al insertar usuario: " + e.getMessage());
-            e.printStackTrace(); 
+public class UsuarioDAO implements BaseDAO<Usuario, Long> {
+    
+    private static final String INSERT_SQL = "INSERT INTO usuarios (nombre, tipo, estado, username, password, email, telefono, direccion) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SELECT_BY_ID_SQL = "SELECT * FROM usuarios WHERE id_usuario = ?";
+    private static final String SELECT_ALL_SQL = "SELECT * FROM usuarios ORDER BY fecha_registro DESC";
+    private static final String UPDATE_SQL = "UPDATE usuarios SET nombre = ?, tipo = ?, estado = ?, email = ?, telefono = ?, direccion = ? WHERE id_usuario = ?";
+    private static final String DELETE_SQL = "DELETE FROM usuarios WHERE id_usuario = ?";
+    private static final String SELECT_BY_USERNAME_SQL = "SELECT * FROM usuarios WHERE username = ?";
+    private static final String SELECT_BY_TIPO_SQL = "SELECT * FROM usuarios WHERE tipo = ?";
+    
+    @Override
+    public Usuario save(Usuario usuario) {
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(INSERT_SQL, new String[]{"id_usuario"})) {
+            
+            stmt.setString(1, usuario.getNombre());
+            stmt.setString(2, usuario.getTipo());
+            stmt.setString(3, usuario.getEstado());
+            stmt.setString(4, usuario.getUsername());
+            stmt.setString(5, usuario.getPassword());
+            stmt.setString(6, usuario.getEmail());
+            stmt.setString(7, usuario.getTelefono());
+            stmt.setString(8, usuario.getDireccion());
+            
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        usuario.setIdUsuario(generatedKeys.getLong(1));
+                    }
+                }
+            }
+            return usuario;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al guardar usuario", e);
         }
     }
-
-    public List<Usuario> listar() {
-        List<Usuario> lista = new ArrayList<>();
-        String sql = "SELECT * FROM usuarios";
-        try (Connection conn = Conexion.getConexion();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) {
-                lista.add(new Usuario(
-                        rs.getInt("id_usuario"),
-                        rs.getString("nombre"),
-                        rs.getString("tipo"),
-                        rs.getString("estado"),
-                        rs.getString("username"),
-                        rs.getString("password")
-                ));
-            }
-        } catch (SQLException e) { e.printStackTrace(); }
-        return lista;
-    }
-
-    public Usuario buscarPorId(int id) {
-        String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
-        try (Connection conn = Conexion.getConexion();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Usuario(
-                        rs.getInt("id_usuario"),
-                        rs.getString("nombre"),
-                        rs.getString("tipo"),
-                        rs.getString("estado"),
-                        rs.getString("username"),
-                        rs.getString("password")
-                );
-            }
-        } catch (SQLException e) { e.printStackTrace(); }
-        return null;
-    }
-
-    public void actualizarUsuario(Usuario usuario) {
-        String sql = "UPDATE usuarios SET nombre = ?, tipo = ?, estado = ?, username = ?, password = ? WHERE id_usuario = ?";
-        try (Connection conn = Conexion.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, usuario.getNombre());
-            ps.setString(2, usuario.getTipo());
-            ps.setString(3, usuario.getEstado());
-            ps.setString(4, usuario.getUsername());
-            ps.setString(5, usuario.getPassword());
-            ps.setInt(6, usuario.getIdUsuario());
-            ps.executeUpdate();
-        } catch (SQLException e) { e.printStackTrace(); }
-    }
-
-    public void actualizarEstado(int id, String nuevoEstado) {
-        String sql = "UPDATE usuarios SET estado = ? WHERE id_usuario = ?";
-        try (Connection conn = Conexion.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, nuevoEstado);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (SQLException e) { e.printStackTrace(); }
-    }
-
-    public void eliminar(int id) {
-        String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
-        try (Connection conn = Conexion.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (SQLException e) { e.printStackTrace(); }
-    }
-
-    public Usuario login(String username, String password) {
-        String sql = "SELECT id_usuario, username, password, nombre, tipo, estado FROM usuarios WHERE UPPER(username) = UPPER(?) AND password = ?";
-        try (Connection conn = Conexion.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setString(1, username);
-            ps.setString(2, password);
-
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Usuario(
-                        rs.getInt("id_usuario"),
-                        rs.getString("nombre"),
-                        rs.getString("tipo"),
-                        rs.getString("estado"),
-                        rs.getString("username"),
-                        rs.getString("password")
-                );
+    
+    @Override
+    public Usuario findById(Long id) {
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SELECT_BY_ID_SQL)) {
+            
+            stmt.setLong(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToUsuario(rs);
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error al buscar usuario por ID", e);
         }
-        return null; 
+        return null;
+    }
+    
+    @Override
+    public List<Usuario> findAll() {
+        List<Usuario> usuarios = new ArrayList<>();
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SELECT_ALL_SQL);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            while (rs.next()) {
+                usuarios.add(mapResultSetToUsuario(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener todos los usuarios", e);
+        }
+        return usuarios;
+    }
+    
+    @Override
+    public Usuario update(Usuario usuario) {
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(UPDATE_SQL)) {
+            
+            stmt.setString(1, usuario.getNombre());
+            stmt.setString(2, usuario.getTipo());
+            stmt.setString(3, usuario.getEstado());
+            stmt.setString(4, usuario.getEmail());
+            stmt.setString(5, usuario.getTelefono());
+            stmt.setString(6, usuario.getDireccion());
+            stmt.setLong(7, usuario.getIdUsuario());
+            
+            stmt.executeUpdate();
+            return usuario;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al actualizar usuario", e);
+        }
+    }
+    
+    @Override
+    public boolean delete(Long id) {
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(DELETE_SQL)) {
+            
+            stmt.setLong(1, id);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al eliminar usuario", e);
+        }
+    }
+    
+    public Usuario findByUsername(String username) {
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SELECT_BY_USERNAME_SQL)) {
+            
+            stmt.setString(1, username);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToUsuario(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al buscar usuario por username", e);
+        }
+        return null;
+    }
+    
+    public List<Usuario> findByTipo(String tipo) {
+        List<Usuario> usuarios = new ArrayList<>();
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SELECT_BY_TIPO_SQL)) {
+            
+            stmt.setString(1, tipo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    usuarios.add(mapResultSetToUsuario(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al buscar usuarios por tipo", e);
+        }
+        return usuarios;
+    }
+    
+    private Usuario mapResultSetToUsuario(ResultSet rs) throws SQLException {
+        return Usuario.builder()
+                .idUsuario(rs.getLong("id_usuario"))
+                .nombre(rs.getString("nombre"))
+                .tipo(rs.getString("tipo"))
+                .estado(rs.getString("estado"))
+                .username(rs.getString("username"))
+                .password(rs.getString("password"))
+                .email(rs.getString("email"))
+                .telefono(rs.getString("telefono"))
+                .direccion(rs.getString("direccion"))
+                .fechaRegistro(rs.getDate("fecha_registro").toLocalDate())
+                .build();
     }
 }

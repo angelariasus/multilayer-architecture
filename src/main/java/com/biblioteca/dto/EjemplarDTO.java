@@ -1,25 +1,24 @@
 package com.biblioteca.dto;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class EjemplarDTO {
-    private int idEjemplar;
-    private int idLibro;
-    private String codigoEjemplar; 
+    private Long idEjemplar;
+    private Long idLibro;
+    private String tituloLibro; // Campo adicional para mostrar el título del libro
+    private String codigoEjemplar;
     private String ubicacion;
-    private String estado; 
-    private String fechaAdquisicion;
+    private String estado;
+    private LocalDate fechaAdquisicion;
     private String observaciones;
-    private String estadoFisico; 
-    
-    // Campos adicionales
-    private String tituloLibro;
-    private String autorLibro;
-    private String isbnLibro;
-    private String categoriaLibro;
+    private String estadoFisico;
+    private Boolean disponibleParaPrestamo; // Campo adicional calculado
 }

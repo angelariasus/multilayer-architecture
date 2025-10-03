@@ -1,26 +1,26 @@
 package com.biblioteca.dto;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UsuarioDTO {
-    private int idUsuario;
+    private Long idUsuario;
     private String nombre;
     private String tipo;
     private String estado;
     private String username;
-    private String password; 
+    // password excluido por seguridad
     private String email;
     private String telefono;
     private String direccion;
-    private String fechaRegistro;
-    
-    // Campos adicionales
-    private int prestamosActivos;
-    private int multasPendientes;
-    private boolean tieneSanciones;
+    private LocalDate fechaRegistro;
+    private Integer prestamosActivos; // Campo adicional
+    private Integer multasPendientes; // Campo adicional
 }

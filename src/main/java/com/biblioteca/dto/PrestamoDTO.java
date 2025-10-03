@@ -1,25 +1,31 @@
 package com.biblioteca.dto;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PrestamoDTO {
-    private int idPrestamo;
-    private int idUsuario;
-    private int idLibro;
-    private String fechaPrestamo;
-    private String fechaDevolucionEsperada;
-    private String fechaDevolucionReal;
-    private String estado; // "Activo", "Devuelto", "Vencido"
+    private Long idPrestamo;
+    private Long idUsuario;
+    private String nombreUsuario; // Campo adicional
+    private String tipoUsuario; // Campo adicional
+    private Long idLibro;
+    private String tituloLibro; // Campo adicional
+    private String autorLibro; // Campo adicional
+    private Long idEjemplar;
+    private String codigoEjemplar; // Campo adicional
+    private LocalDate fechaPrestamo;
+    private LocalDate fechaDevolucionEsperada;
+    private LocalDate fechaDevolucionReal;
+    private String estado;
     private String observaciones;
-    
-    // Campos adicionales para mostrar información relacionada
-    private String nombreUsuario;
-    private String tituloLibro;
-    private String autorLibro;
-    private boolean esVencido;
+    private Integer diasRetraso; // Campo adicional calculado
+    private Boolean tieneMulta; // Campo adicional calculado
+    private Boolean estaVencido; // Campo adicional calculado
 }

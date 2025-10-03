@@ -1,120 +1,131 @@
--- ========================
--- INSERTAR USUARIOS
--- ========================
-INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
-VALUES (1, 'Ana Torres', 'Alumno', 'Activo', 'ana.torres', '1234');
+-- Insertar categorías
+INSERT INTO categorias (nombre, descripcion) VALUES 
+('Ficción', 'Novelas y cuentos de ficción');
+INSERT INTO categorias (nombre, descripcion) VALUES 
+('Ciencias', 'Libros de ciencias exactas y naturales');
+INSERT INTO categorias (nombre, descripcion) VALUES 
+('Historia', 'Libros históricos y biografías');
+INSERT INTO categorias (nombre, descripcion) VALUES 
+('Tecnología', 'Libros de informática y tecnología');
+INSERT INTO categorias (nombre, descripcion) VALUES 
+('Literatura Clásica', 'Obras clásicas de la literatura universal');
 
-INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
-VALUES (2, 'Luis García', 'Alumno', 'Activo', 'luis.garcia', '1234');
+-- Insertar usuarios
+INSERT INTO usuarios (nombre, tipo, username, password, email, telefono) VALUES 
+('María González', 'Bibliotecario', 'mgonzalez', 'password123', 'maria.gonzalez@biblioteca.edu', '987654321');
+INSERT INTO usuarios (nombre, tipo, username, password, email, telefono) VALUES 
+('Juan Pérez', 'Estudiante', 'jperez', 'student123', 'juan.perez@estudiante.edu', '987654322');
+INSERT INTO usuarios (nombre, tipo, username, password, email, telefono) VALUES 
+('Ana Rodríguez', 'Docente', 'arodriguez', 'teacher123', 'ana.rodriguez@docente.edu', '987654323');
+INSERT INTO usuarios (nombre, tipo, username, password, email, telefono) VALUES 
+('Carlos López', 'Administrativo', 'clopez', 'admin123', 'carlos.lopez@admin.edu', '987654324');
+INSERT INTO usuarios (nombre, tipo, username, password, email, telefono) VALUES 
+('Laura Martín', 'Estudiante', 'lmartin', 'student456', 'laura.martin@estudiante.edu', '987654325');
 
-INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
-VALUES (3, 'María López', 'Docente', 'Activo', 'maria.lopez', 'abcd');
+-- Insertar libros
+INSERT INTO libros (titulo, autor, isbn, id_categoria, cantidad_total, cantidad_disponible, editorial, fecha_publicacion) VALUES 
+('Cien años de soledad', 'Gabriel García Márquez', '978-0060883287', 1, 5, 3, 'Editorial Sudamericana', DATE '1967-06-05');
+INSERT INTO libros (titulo, autor, isbn, id_categoria, cantidad_total, cantidad_disponible, editorial, fecha_publicacion) VALUES 
+('Fundamentos de Física', 'David Halliday', '978-0471804143', 2, 8, 6, 'Wiley', DATE '2000-01-15');
+INSERT INTO libros (titulo, autor, isbn, id_categoria, cantidad_total, cantidad_disponible, editorial, fecha_publicacion) VALUES 
+('Historia del Perú', 'Jorge Basadre', '978-9972407109', 3, 4, 2, 'Editorial Universitaria', DATE '1968-12-01');
+INSERT INTO libros (titulo, autor, isbn, id_categoria, cantidad_total, cantidad_disponible, editorial, fecha_publicacion) VALUES 
+('Java: The Complete Reference', 'Herbert Schildt', '978-0071808558', 4, 6, 4, 'McGraw-Hill', DATE '2014-03-20');
+INSERT INTO libros (titulo, autor, isbn, id_categoria, cantidad_total, cantidad_disponible, editorial, fecha_publicacion) VALUES 
+('Don Quijote de la Mancha', 'Miguel de Cervantes', '978-8424116392', 5, 3, 1, 'Editorial Espasa', DATE '1605-01-16');
 
-INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
-VALUES (4, 'Carlos Ramos', 'Administrativo', 'Activo', 'carlos.ramos', 'admin');
+-- Insertar ejemplares
+-- Ejemplares para "Cien años de soledad"
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(1, 'LIB001-001', 'Estante A-1', 'Bueno');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(1, 'LIB001-002', 'Estante A-1', 'Excelente');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico, estado) VALUES 
+(1, 'LIB001-003', 'Estante A-1', 'Bueno', 'Prestado');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(1, 'LIB001-004', 'Estante A-1', 'Regular');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(1, 'LIB001-005', 'Estante A-1', 'Bueno');
 
-INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
-VALUES (5, 'Sofía Delgado', 'Alumno', 'Bloqueado', 'sofia.delgado', '5678');
+-- Ejemplares para "Fundamentos de Física"
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(2, 'LIB002-001', 'Estante B-2', 'Excelente');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(2, 'LIB002-002', 'Estante B-2', 'Bueno');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico, estado) VALUES 
+(2, 'LIB002-003', 'Estante B-2', 'Bueno', 'Prestado');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico, estado) VALUES 
+(2, 'LIB002-004', 'Estante B-2', 'Excelente', 'Prestado');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(2, 'LIB002-005', 'Estante B-2', 'Bueno');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(2, 'LIB002-006', 'Estante B-2', 'Regular');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(2, 'LIB002-007', 'Estante B-2', 'Bueno');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(2, 'LIB002-008', 'Estante B-2', 'Excelente');
 
-INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
-VALUES (6, 'Pedro Castillo', 'Docente', 'Activo', 'pedro.castillo', 'abcd');
+-- Continuar con los demás libros...
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(3, 'LIB003-001', 'Estante C-3', 'Bueno');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(3, 'LIB003-002', 'Estante C-3', 'Regular');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico, estado) VALUES 
+(3, 'LIB003-003', 'Estante C-3', 'Bueno', 'Prestado');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico, estado) VALUES 
+(3, 'LIB003-004', 'Estante C-3', 'Excelente', 'Prestado');
 
-INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
-VALUES (7, 'Laura Fernández', 'Alumno', 'Activo', 'laura.fernandez', 'pass1');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(4, 'LIB004-001', 'Estante D-4', 'Excelente');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(4, 'LIB004-002', 'Estante D-4', 'Bueno');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(4, 'LIB004-003', 'Estante D-4', 'Bueno');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico, estado) VALUES 
+(4, 'LIB004-004', 'Estante D-4', 'Regular', 'Prestado');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(4, 'LIB004-005', 'Estante D-4', 'Excelente');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico, estado) VALUES 
+(4, 'LIB004-006', 'Estante D-4', 'Bueno', 'Prestado');
 
-INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
-VALUES (8, 'Diego Medina', 'Alumno', 'Activo', 'diego.medina', 'pass2');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico) VALUES 
+(5, 'LIB005-001', 'Estante E-5', 'Regular');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico, estado) VALUES 
+(5, 'LIB005-002', 'Estante E-5', 'Bueno', 'Prestado');
+INSERT INTO ejemplares (id_libro, codigo_ejemplar, ubicacion, estado_fisico, estado) VALUES 
+(5, 'LIB005-003', 'Estante E-5', 'Excelente', 'Prestado');
 
-INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
-VALUES (9, 'Carmen Soto', 'Docente', 'Activo', 'carmen.soto', 'doc123');
+-- Insertar préstamos activos
+INSERT INTO prestamos (id_usuario, id_libro, id_ejemplar, fecha_prestamo, fecha_devolucion_esperada) VALUES 
+(2, 1, 3, SYSDATE - 5, SYSDATE + 10);
+INSERT INTO prestamos (id_usuario, id_libro, id_ejemplar, fecha_prestamo, fecha_devolucion_esperada) VALUES 
+(3, 2, 3, SYSDATE - 3, SYSDATE + 12);
+INSERT INTO prestamos (id_usuario, id_libro, id_ejemplar, fecha_prestamo, fecha_devolucion_esperada) VALUES 
+(5, 2, 4, SYSDATE - 8, SYSDATE + 7);
+INSERT INTO prestamos (id_usuario, id_libro, id_ejemplar, fecha_prestamo, fecha_devolucion_esperada) VALUES 
+(2, 3, 3, SYSDATE - 20, SYSDATE - 5);
+INSERT INTO prestamos (id_usuario, id_libro, id_ejemplar, fecha_prestamo, fecha_devolucion_esperada) VALUES 
+(3, 3, 4, SYSDATE - 12, SYSDATE + 3);
+INSERT INTO prestamos (id_usuario, id_libro, id_ejemplar, fecha_prestamo, fecha_devolucion_esperada) VALUES 
+(5, 4, 4, SYSDATE - 6, SYSDATE + 9);
+INSERT INTO prestamos (id_usuario, id_libro, id_ejemplar, fecha_prestamo, fecha_devolucion_esperada) VALUES 
+(2, 4, 6, SYSDATE - 2, SYSDATE + 13);
+INSERT INTO prestamos (id_usuario, id_libro, id_ejemplar, fecha_prestamo, fecha_devolucion_esperada) VALUES 
+(3, 5, 2, SYSDATE - 10, SYSDATE + 5);
+INSERT INTO prestamos (id_usuario, id_libro, id_ejemplar, fecha_prestamo, fecha_devolucion_esperada) VALUES 
+(5, 5, 3, SYSDATE - 1, SYSDATE + 14);
 
-INSERT INTO usuarios (id_usuario, nombre, tipo, estado, username, password)
-VALUES (10, 'Javier Paredes', 'Alumno', 'Activo', 'javier.paredes', 'jp2025');
+-- Insertar reservas
+INSERT INTO reservas (id_usuario, id_libro, fecha_reserva, fecha_vencimiento) VALUES 
+(2, 5, SYSDATE, SYSDATE + 3);
+INSERT INTO reservas (id_usuario, id_libro, fecha_reserva, fecha_vencimiento) VALUES 
+(3, 1, SYSDATE - 1, SYSDATE + 2);
 
-COMMIT;
+-- Insertar multas (para préstamos vencidos)
+INSERT INTO multas (id_prestamo, monto, motivo, dias_retraso) VALUES 
+(4, 5.00, 'Devolución tardía', 5);
 
-
--- ========================
--- INSERTAR EJEMPLARES
--- ========================
-INSERT INTO ejemplares (id_ejemplar, titulo, autor, editorial, anio, categoria, estado) 
-VALUES (1, 'Programación en Java', 'Deitel', 'Pearson', 2021, 'Programación', 'Disponible');
-
-INSERT INTO ejemplares (id_ejemplar, titulo, autor, editorial, anio, categoria, estado) 
-VALUES (2, 'Base de Datos: Diseño y Administración', 'Coronel', 'Cengage', 2019, 'Bases de Datos', 'Disponible');
-
-INSERT INTO ejemplares (id_ejemplar, titulo, autor, editorial, anio, categoria, estado) 
-VALUES (3, 'Estructuras de Datos en C++', 'Weiss', 'Pearson', 2020, 'Programación', 'Disponible');
-
-INSERT INTO ejemplares (id_ejemplar, titulo, autor, editorial, anio, categoria, estado) 
-VALUES (4, 'Sistemas Operativos', 'Silberschatz', 'McGraw-Hill', 2018, 'Sistemas', 'Disponible');
-
-INSERT INTO ejemplares (id_ejemplar, titulo, autor, editorial, anio, categoria, estado) 
-VALUES (5, 'Redes de Computadoras', 'Tanenbaum', 'Pearson', 2022, 'Redes', 'Disponible');
-
-INSERT INTO ejemplares (id_ejemplar, titulo, autor, editorial, anio, categoria, estado) 
-VALUES (6, 'Ingeniería de Software', 'Pressman', 'McGraw-Hill', 2021, 'Software', 'Disponible');
-
-INSERT INTO ejemplares (id_ejemplar, titulo, autor, editorial, anio, categoria, estado) 
-VALUES (7, 'Matemáticas Discretas', 'Rosen', 'McGraw-Hill', 2019, 'Matemáticas', 'Disponible');
-
-INSERT INTO ejemplares (id_ejemplar, titulo, autor, editorial, anio, categoria, estado) 
-VALUES (8, 'Algoritmos: Diseño y Análisis', 'Cormen', 'MIT Press', 2020, 'Algoritmos', 'Disponible');
-
-INSERT INTO ejemplares (id_ejemplar, titulo, autor, editorial, anio, categoria, estado) 
-VALUES (9, 'Inteligencia Artificial', 'RussellNorvig', 'Pearson', 2021, 'IA', 'Disponible');
-
-INSERT INTO ejemplares (id_ejemplar, titulo, autor, editorial, anio, categoria, estado) 
-VALUES (10, 'Machine Learning', 'Goodfellow', 'MIT Press', 2019, 'IA', 'Disponible');
-
-COMMIT;
-
-
--- ========================
--- INSERTAR PRÉSTAMOS
--- ========================
-INSERT INTO prestamos (id_prestamo, id_usuario, id_ejemplar, fecha_prestamo, fecha_devolucion, devuelto)
-VALUES (1, 1, 1, DATE '2025-09-01', DATE '2025-09-08', 'N');
-
-INSERT INTO prestamos (id_prestamo, id_usuario, id_ejemplar, fecha_prestamo, fecha_devolucion, devuelto)
-VALUES (2, 2, 3, DATE '2025-08-20', DATE '2025-08-27', 'S');
-
-INSERT INTO prestamos (id_prestamo, id_usuario, id_ejemplar, fecha_prestamo, fecha_devolucion, devuelto)
-VALUES (3, 3, 4, DATE '2025-09-10', DATE '2025-09-17', 'N');
-
-INSERT INTO prestamos (id_prestamo, id_usuario, id_ejemplar, fecha_prestamo, fecha_devolucion, devuelto)
-VALUES (4, 5, 2, DATE '2025-08-01', DATE '2025-08-10', 'S');
-
-COMMIT;
-
--- ========================
--- INSERTAR RESERVAS
--- ========================
-INSERT INTO reservas (id_reserva, id_usuario, id_ejemplar, fecha_reserva)
-VALUES (1, 4, 6, DATE '2025-09-15');
-
-INSERT INTO reservas (id_reserva, id_usuario, id_ejemplar, fecha_reserva)
-VALUES (2, 7, 7, DATE '2025-09-18');
-
-INSERT INTO reservas (id_reserva, id_usuario, id_ejemplar, fecha_reserva)
-VALUES (3, 8, 9, DATE '2025-09-19');
-
-COMMIT;
-
-
--- ========================
--- INSERTAR MULTAS
--- ========================
-INSERT INTO multas (id_multa, id_usuario, monto, pagado, fecha_multa)
-VALUES (1, 2, 10.50, 'N', DATE '2025-09-05');
-
-INSERT INTO multas (id_multa, id_usuario, monto, pagado, fecha_multa)
-VALUES (2, 5, 15.00, 'S', DATE '2025-08-15');
-
-INSERT INTO multas (id_multa, id_usuario, monto, pagado, fecha_multa)
-VALUES (3, 1, 5.00, 'N', DATE '2025-09-10');
-
-INSERT INTO multas (id_multa, id_usuario, monto, pagado, fecha_multa)
-VALUES (4, 9, 20.00, 'N', DATE '2025-09-20');
+-- Actualizar disponibilidad después de las inserciones
+EXEC actualizar_disponibilidad_libros;
 
 COMMIT;

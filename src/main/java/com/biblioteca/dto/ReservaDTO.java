@@ -1,29 +1,28 @@
 package com.biblioteca.dto;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ReservaDTO {
-    private int idReserva;
-    private int idUsuario;
-    private int idLibro;
-    private String fechaReserva;
-    private String fechaVencimiento;
-    private String fechaRecogida;
+    private Long idReserva;
+    private Long idUsuario;
+    private String nombreUsuario; // Campo adicional
+    private Long idLibro;
+    private String tituloLibro; // Campo adicional
+    private String autorLibro; // Campo adicional
+    private LocalDate fechaReserva;
+    private LocalDate fechaVencimiento;
+    private LocalDate fechaRecogida;
     private String estado;
-    private int posicionCola;
+    private Integer posicionCola;
     private String observaciones;
-    
-    // Campos adicionales
-    private String nombreUsuario;
-    private String emailUsuario;
-    private String tituloLibro;
-    private String autorLibro;
-    private String isbnLibro;
-    private boolean esUrgente;
-    private int diasRestantes;
+    private Integer diasRestantes; // Campo adicional calculado
+    private Boolean puedeRecoger; // Campo adicional calculado
 }

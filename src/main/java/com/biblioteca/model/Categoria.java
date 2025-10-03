@@ -1,16 +1,19 @@
 package com.biblioteca.model;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Categoria {
-    private int idCategoria;
+    private Long idCategoria;
     private String nombre;
     private String descripcion;
-    private String estado;
-    private int cantidadLibros;
+    private String estado; // 'Activa', 'Inactiva'
+    private LocalDate fechaCreacion;
 }

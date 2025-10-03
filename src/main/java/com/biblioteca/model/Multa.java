@@ -1,25 +1,23 @@
 package com.biblioteca.model;
-import lombok.Data;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Multa {
-    private int idMulta;
-    private int idPrestamo;
+    private Long idMulta;
+    private Long idPrestamo;
     private BigDecimal monto;
-    private String fechaGeneracion;
-    private String fechaPago;
-    private String estado; 
+    private LocalDate fechaGeneracion;
+    private LocalDate fechaPago;
+    private String estado; // 'Pendiente', 'Pagada', 'Cancelada'
     private String motivo;
-    private int diasRetraso;
-    
-    // Campos adicionales
-    private String nombreUsuario;
-    private String tituloLibro;
+    private Integer diasRetraso;
 }

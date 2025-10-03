@@ -1,25 +1,23 @@
 package com.biblioteca.model;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Prestamo {
-    private int idPrestamo;
-    private int idUsuario;
-    private int idLibro;
-    private String fechaPrestamo;
-    private String fechaDevolucionEsperada;
-    private String fechaDevolucionReal;
-    private String estado; 
+    private Long idPrestamo;
+    private Long idUsuario;
+    private Long idLibro;
+    private Long idEjemplar;
+    private LocalDate fechaPrestamo;
+    private LocalDate fechaDevolucionEsperada;
+    private LocalDate fechaDevolucionReal;
+    private String estado; // 'Activo', 'Devuelto', 'Vencido'
     private String observaciones;
-    
-    // Campos adicionales
-    private String nombreUsuario;
-    private String tituloLibro;
-    private String autorLibro;
-    private boolean esVencido;
 }

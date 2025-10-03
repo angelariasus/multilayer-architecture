@@ -1,29 +1,23 @@
 package com.biblioteca.model;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Reserva {
-    private int idReserva;
-    private int idUsuario;
-    private int idLibro;
-    private String fechaReserva;
-    private String fechaVencimiento;
-    private String fechaRecogida;
-    private String estado;
-    private int posicionCola;
+    private Long idReserva;
+    private Long idUsuario;
+    private Long idLibro;
+    private LocalDate fechaReserva;
+    private LocalDate fechaVencimiento;
+    private LocalDate fechaRecogida;
+    private String estado; // 'Activa', 'Cumplida', 'Vencida', 'Cancelada'
+    private Integer posicionCola;
     private String observaciones;
-    
-    // Campos adicionales
-    private String nombreUsuario;
-    private String emailUsuario;
-    private String tituloLibro;
-    private String autorLibro;
-    private String isbnLibro;
-    private boolean esUrgente;
-    private int diasRestantes;
 }
