@@ -1,5 +1,15 @@
 package com.biblioteca.dto;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UsuarioDTO {
-
+    private int idUsuario;
+    private String nombre;
+    private String tipo;
+    private String estado;
+    private String username;
 }

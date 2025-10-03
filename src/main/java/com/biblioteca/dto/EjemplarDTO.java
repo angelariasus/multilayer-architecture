@@ -1,5 +1,17 @@
 package com.biblioteca.dto;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class EjemplarDTO {
-    
+    private int idEjemplar;
+    private String titulo;
+    private String autor;
+    private String editorial;
+    private int anio;
+    private String categoria;
+    private String estado;
 }

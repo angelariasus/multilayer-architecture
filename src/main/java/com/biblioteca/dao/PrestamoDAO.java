@@ -1,12 +1,9 @@
 package com.biblioteca.dao;
-
 import com.biblioteca.model.Prestamo;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 public class PrestamoDAO {
-
     public void registrar(Prestamo prestamo) {
         String sql = "INSERT INTO prestamos(id_usuario, id_ejemplar, fecha_prestamo, fecha_devolucion, devuelto) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Conexion.getConexion();
@@ -19,7 +16,6 @@ public class PrestamoDAO {
             ps.executeUpdate();
         } catch (SQLException e) { e.printStackTrace(); }
     }
-
     public List<Prestamo> listar() {
         List<Prestamo> lista = new ArrayList<>();
         String sql = "SELECT * FROM prestamos";
@@ -38,7 +34,6 @@ public class PrestamoDAO {
         } catch (SQLException e) { e.printStackTrace(); }
         return lista;
     }
-
     public void marcarDevuelto(int idPrestamo) {
         String sql = "UPDATE prestamos SET devuelto = 'S' WHERE id_prestamo = ?";
         try (Connection conn = Conexion.getConexion();

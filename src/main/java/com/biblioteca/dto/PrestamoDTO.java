@@ -1,11 +1,17 @@
 package com.biblioteca.dto;
-import com.biblioteca.dao.PrestamoDAO;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import java.util.Date;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PrestamoDTO {
-    private PrestamoDAO prestamoDAO = new PrestamoDAO();
-    public PrestamoDAO getPrestamoDAO() {
-        return prestamoDAO;
-    }
-    public void setPrestamoDAO(PrestamoDAO prestamoDAO) {
-        this.prestamoDAO = prestamoDAO;
-    }
+    private int idPrestamo;
+    private int idUsuario;
+    private int idEjemplar;
+    private Date fechaPrestamo;
+    private Date fechaDevolucion;
+    private String devuelto;
 }

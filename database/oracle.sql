@@ -31,8 +31,10 @@ CREATE TABLE prestamos (
     fecha_prestamo DATE DEFAULT SYSDATE,
     fecha_devolucion DATE,
     devuelto CHAR(1) DEFAULT 'N' CHECK (devuelto IN ('S','N')),
-    CONSTRAINT fk_prestamo_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
-    CONSTRAINT fk_prestamo_ejemplar FOREIGN KEY (id_ejemplar) REFERENCES ejemplares(id_ejemplar)
+    CONSTRAINT fk_prestamo_usuario FOREIGN 
+        KEY (id_usuario) REFERENCES usuarios(id_usuario),
+    CONSTRAINT fk_prestamo_ejemplar FOREIGN 
+        KEY (id_ejemplar) REFERENCES ejemplares(id_ejemplar)
 );
 
 CREATE TABLE reservas (
