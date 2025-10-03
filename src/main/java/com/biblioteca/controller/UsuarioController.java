@@ -11,13 +11,7 @@ public class UsuarioController {
     private UsuarioService usuarioService = new UsuarioService();
 
     public void registrarUsuario(UsuarioDTO usuarioDTO) {
-        Usuario usuario = new Usuario(
-            0, 
-            usuarioDTO.getNombre(), 
-            usuarioDTO.getTipo(), 
-            "Activo", 
-            usuarioDTO.getUsername(), 
-            usuarioDTO.getPassword());
+        Usuario usuario = convertirDTOaEntity(usuarioDTO);
         usuarioService.registrarUsuario(usuario);
         System.out.println("Usuario registrado.");
     }
@@ -25,37 +19,43 @@ public class UsuarioController {
     public List<UsuarioDTO> listarUsuariosDTO() {
         List<Usuario> usuarios = usuarioService.listarUsuarios();
         List<UsuarioDTO> usuariosDTO = new ArrayList<>();
-        
         for (Usuario usuario : usuarios) {
-            UsuarioDTO dto = new UsuarioDTO(
-                usuario.getIdUsuario(),
-                usuario.getNombre(),
-                usuario.getTipo(),
-                usuario.getEstado(),
-                usuario.getUsername(),
-                usuario.getPassword()
-            );
-            usuariosDTO.add(dto);
+            usuariosDTO.add(convertirEntityaDTO(usuario));
         }
-        
         return usuariosDTO;
     }
 
     public void actualizarUsuario(UsuarioDTO usuarioDTO) {
-        Usuario usuario = new Usuario(
-            usuarioDTO.getIdUsuario(),
-            usuarioDTO.getNombre(),
-            usuarioDTO.getTipo(),
-            usuarioDTO.getEstado(),
-            usuarioDTO.getUsername(),
-            usuarioDTO.getPassword()
-        );
+        Usuario usuario = convertirDTOaEntity(usuarioDTO);
         usuarioService.actualizarUsuario(usuario);
         System.out.println("Usuario actualizado.");
     }
 
-    public Usuario buscarUsuario(int id) {
-        return usuarioService.buscarUsuario(id);
+    public UsuarioDTO buscarUsuario(int id) {
+        Usuario usuario = usuarioService.buscarUsuario(id);
+        return usuario != null ? convertirEntityaDTO(usuario) : null;
+    }
+
+    private Usuario convertirDTOaEntity(UsuarioDTO dto) {
+        return new Usuario(
+            dto.getIdUsuario(),
+            dto.getNombre(),
+            dto.getTipo(),
+            dto.getEstado() != null ? dto.getEstado() : "Activo",
+            dto.getUsername(),
+            dto.getPassword()
+        );
+    }
+
+    private UsuarioDTO convertirEntityaDTO(Usuario usuario) {
+        return new UsuarioDTO(
+            usuario.getIdUsuario(),
+            usuario.getNombre(),
+            usuario.getTipo(),
+            usuario.getEstado(),
+            usuario.getUsername(),
+            "****" 
+        );
     }
 
     public void bloquearUsuario(int id) {
@@ -70,6 +70,6 @@ public class UsuarioController {
 
     public void eliminarUsuario(int id) {
         usuarioService.eliminarUsuario(id);
-        System.out.println("🗑 Usuario eliminado.");
+        System.out.println("Usuario eliminado.");
     }
 }

@@ -1,5 +1,7 @@
 package com.biblioteca.model;
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -9,8 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Multa {
     private int idMulta;
-    private int idUsuario;
-    private double monto;
-    private String pagado; 
-    private Date fechaMulta;
+    private int idPrestamo;
+    private BigDecimal monto;
+    private String fechaGeneracion;
+    private String fechaPago;
+    private String estado; 
+    private String motivo;
+    private int diasRetraso;
+    
+    // Campos adicionales
+    private String nombreUsuario;
+    private String tituloLibro;
 }
